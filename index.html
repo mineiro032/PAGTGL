@@ -79,27 +79,9 @@ src="https://www.facebook.com/tr?id=1208848400642184&ev=PageView&noscript=1"
   </div>
 
   <script>
-    function setCookie(name, value, days) {
-      const expires = new Date(Date.now() + days * 864e5).toUTCString();
-      document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
-    }
-
-    function getCookie(name) {
-      return document.cookie.split('; ').reduce((r, v) => {
-        const parts = v.split('=');
-        return parts[0] === name ? decodeURIComponent(parts[1]) : r;
-      }, '');
-    }
-
-    // Verifica se o cookie já foi definido
-    if (getCookie("buttonClicked") === "true") {
-      document.getElementById("productButton").style.display = "none"; // Esconde o botão
-    }
-
     document.getElementById("productButton").addEventListener("click", function() {
-      setCookie("buttonClicked", "true", 1); // Define o cookie para expirar em 1 dia
       alert("Você clicou no botão! O produto está a caminho.");
-      this.style.display = "none"; // Esconde o botão após o clique
+      // Removi a linha que escondia o botão
     });
   </script>
 
