@@ -17,7 +17,7 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=25217747244475801&ev=PageView&noscript=1"
 /></noscript>
-<!-- End Meta Pixel Code -->
+<!-- End Meta Pixel Code -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +30,11 @@ src="https://www.facebook.com/tr?id=25217747244475801&ev=PageView&noscript=1"
     </script>
 </head>
 <body>
-    
+    <script>
+        // Rastrear o evento de compra
+        fbq('track', 'Purchase', {
+            currency: 'BRL' // Altere para a moeda correta, se necessário
+        });
+    </script>
 </body>
 </html>
