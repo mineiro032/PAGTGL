@@ -1,57 +1,184 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- Meta Pixel Code -->
+  <script>
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    // Dados vindos da URL
+    const clickid = getParam("kwai_click_id");
+    const campaign = getParam("CampaignID");
+    const creative = getParam("CreativeID");
+    const ip = getParam("ip_address");
+    const userAgent = getParam("user_agent");
+
+    const basePayload = {
+      access_token: "i0joy2_kO592VMAUnx-O84Arxu3mhMCvMc0lISE-m3o",
+      clickid: clickid,
+      is_attributed: 1,
+      mmpcode: "PL",
+      pixelId: "300480102929523",
+      pixelSdkVersion: "9.9.9",
+      testFlag: false,
+      third_party: "XXX",
+      trackFlag: true
+    };
+
+    function sendEvent(eventName, extraProperties = {}) {
+      const payload = {
+        ...basePayload,
+        event_name: eventName,
+        properties: JSON.stringify({
+          content_id: "123",
+          content_type: "product",
+          content_name: "Nome Teste",
+          campaign_id: campaign,
+          creative_id: creative,
+          ip_address: ip,
+          user_agent: userAgent,
+          ...extraProperties
+        })
+      };
+
+      return fetch("https://www.adsnebula.com/log/common/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.text())
+      .then(data => {
+        console.log(`Evento ${eventName} enviado:`, data);
+      })
+      .catch(err => {
+        console.error(`Erro no evento ${eventName}:`, err);
+      });
+    }
+
+    // Dispara os eventos em sequência
+    async function fireEvents() {
+      await sendEvent("EVENT_CONTENT_VIEW");
+
+      await sendEvent("EVENT_ADD_TO_CART", {
+        quantity: 1,
+        price: 10000 // em centavos, se aplicável
+      });
+
+      await sendEvent("EVENT_PURCHASE", {
+        order_id: "ORDER_" + Date.now(),
+        revenue: 10000,
+        currency: "BRL"
+      });
+    }
+
+    fireEvents();
+  </script>
+
+  <!-- TikTok Pixel -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;
+    var ttq=w[t]=w[t]||[];
+    ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+    ttq.setAndDefer=function(t,e){
+      t[e]=function(){
+        t.push([e].concat(Array.prototype.slice.call(arguments,0)))
+      }
+    };
+    for(var i=0;i<ttq.methods.length;i++){
+      ttq.setAndDefer(ttq,ttq.methods[i]);
+    }
+    ttq.load=function(e,n){
+      var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+      var o=document.createElement("script");
+      o.type="text/javascript";
+      o.async=!0;
+      o.src=i+"?sdkid="+e+"&lib="+t;
+      var a=document.getElementsByTagName("script")[0];
+      a.parentNode.insertBefore(o,a);
+    };
+
+    ttq.load('D7858L3C77U88469HM5G');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  
+<!-- TikTok Pixel Code Start -->
 <script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1829074487725472');
-fbq('track', 'PageView');
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+
+  ttq.load('D77SQIJC77U7F63B8N4G');
+  ttq.page();
+}(window, document, 'ttq');
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1829074487725472&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2142583723214546');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2142583723214546&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2277553312688922');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2277553312688922&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+<!-- TikTok Pixel Code End -->  
+  
+<!-- TikTok Pixel -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;
+    var ttq=w[t]=w[t]||[];
+    ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+    ttq.setAndDefer=function(t,e){
+      t[e]=function(){
+        t.push([e].concat(Array.prototype.slice.call(arguments,0)))
+      }
+    };
+    for(var i=0;i<ttq.methods.length;i++){
+      ttq.setAndDefer(ttq,ttq.methods[i]);
+    }
+    ttq.load=function(e,n){
+      var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+      var o=document.createElement("script");
+      o.type="text/javascript";
+      o.async=!0;
+      o.src=i+"?sdkid="+e+"&lib="+t;
+      var a=document.getElementsByTagName("script")[0];
+      a.parentNode.insertBefore(o,a);
+    };
+
+    ttq.load('D785VUJC77U41AUTL260');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  
+<!-- TikTok Pixel -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;
+    var ttq=w[t]=w[t]||[];
+    ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+    ttq.setAndDefer=function(t,e){
+      t[e]=function(){
+        t.push([e].concat(Array.prototype.slice.call(arguments,0)))
+      }
+    };
+    for(var i=0;i<ttq.methods.length;i++){
+      ttq.setAndDefer(ttq,ttq.methods[i]);
+    }
+    ttq.load=function(e,n){
+      var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+      var o=document.createElement("script");
+      o.type="text/javascript";
+      o.async=!0;
+      o.src=i+"?sdkid="+e+"&lib="+t;
+      var a=document.getElementsByTagName("script")[0];
+      a.parentNode.insertBefore(o,a);
+    };
+
+    ttq.load('D76KK43C77UDBCCMJLR0');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Obrigado!</title>
@@ -92,7 +219,7 @@ src="https://www.facebook.com/tr?id=2277553312688922&ev=PageView&noscript=1"
 <body>
     <div class="container">
         <h1>Parabéns! Acesso Liberado!</h1>
-        <button onclick="window.location.href='https://www.youtube.com/'">Acesso VIP</button>
+        <button onclick="window.location.href='https://t.me/VIPluiza_bot'">Acesso VIP</button>
     </div>
 </body>
 </html>
