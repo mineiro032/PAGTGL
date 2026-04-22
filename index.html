@@ -12,21 +12,29 @@
         const btn = document.getElementById("btn");
         const loading = document.getElementById("loading");
 
-        btn.innerHTML = "Processando...";
+        btn.innerHTML = "Abrindo Telegram...";
         btn.disabled = true;
         loading.style.display = "block";
 
         setTimeout(() => {
-            const params = window.location.search;
-            const baseUrl = "https://encurtar-link.click/l/bot-d6112058";
-            window.location.href = baseUrl + params;
+            // 1. Captura os parâmetros (UTMs) que vieram do anúncio do TikTok
+            const params = window.location.search; 
+            
+            // 2. Link direto do seu Bot com o ID da BotBrain
+            // O parâmetro 'start' é o que o bot lê para saber quem é o usuário/campanha
+            const baseUrl = "https://t.me/Larissa_Fuego_bot";
+            
+            // 3. Concatena o link do bot com as UTMs (trocando o '?' por '&' se necessário)
+            const finalUrl = params ? baseUrl + "&" + params.substring(1) : baseUrl;
+            
+            window.location.href = finalUrl;
         }, 800);
     }
     </script>
 
     <style>
         body {
-            background: #0f0f0f; /* Cor escura premium (cyber/tech) */
+            background: #0f0f0f;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
@@ -46,40 +54,38 @@
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             text-align: center;
-            margin-top: 50px;
+            margin-top: 20px;
         }
 
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #ec407a, #c2185b);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
+        .product-image {
+            width: 150px; 
+            height: 150px;
+            object-fit: cover; 
+            border-radius: 50%; 
             margin: 0 auto 20px;
+            border: 3px solid #ec407a;
+            display: block;
         }
 
         .title {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
             color: #fff;
             margin-bottom: 15px;
         }
 
         .desc {
-            font-size: 14px;
-            color: #aaa;
-            line-height: 1.5;
+            font-size: 15px;
+            color: #ccc;
+            line-height: 1.6;
             margin-bottom: 25px;
         }
 
         .info-box {
             background: rgba(236, 64, 122, 0.1);
             border-radius: 8px;
-            padding: 10px;
-            font-size: 12px;
+            padding: 12px;
+            font-size: 13px;
             color: #ec407a;
             margin-bottom: 20px;
             border: 1px solid rgba(236, 64, 122, 0.2);
@@ -87,26 +93,22 @@
 
         button {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             border: none;
             border-radius: 12px;
             background: linear-gradient(90deg, #ec407a, #d81b60);
             color: white;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        button:active {
-            transform: scale(0.98);
+            transition: all 0.2s;
         }
 
         #loading {
             display: none;
             margin-top: 15px;
-            font-size: 13px;
+            font-size: 14px;
             color: #ec407a;
         }
 
@@ -117,42 +119,37 @@
             text-align: center;
         }
 
-        .footer a {
-            color: #666;
-            text-decoration: underline;
-            margin: 0 5px;
-        }
+        .footer a { color: #666; margin: 0 5px; }
     </style>
 </head>
 
 <body>
 
 <div class="container">
-    <div class="logo">🚀</div>
-    <div class="title">Área de Acesso</div>
+    <img src="foto_anuncio.jpg" alt="Acesso" class="product-image">
+    
+    <div class="title">Acesso Liberado</div>
     
     <div class="desc">
-        Você está sendo redirecionado para a plataforma oficial. <br>
-        <strong>Confirme seu interesse abaixo para liberar o acesso ao sistema.</strong>
+        Clique no botão abaixo para abrir o sistema diretamente no seu <strong>Telegram</strong>.
     </div>
 
     <div class="info-box">
-        🔒 Conexão segura e acesso imediato.
+        🔒 Verificado pela BotBrain.
     </div>
 
     <button id="btn" onclick="continuar()">
-        DESBLOQUEAR ACESSO AGORA
+        ABRIR TELEGRAM AGORA
     </button>
 
     <div id="loading">
-        Preparando seu ambiente seguro...
+        Conectando ao bot seguro...
     </div>
 </div>
 
 <div class="footer">
     <p>© 2026 BotBrain - Todos os direitos reservados.</p>
-    <a href="#">Termos de Uso</a> • <a href="#">Privacidade</a>
-    <p style="margin-top: 10px;">contato@seudominio.com</p>
+    <a href="#">Privacidade</a> • <a href="#">Termos</a>
 </div>
 
 </body>
