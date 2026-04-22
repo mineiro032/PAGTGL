@@ -1,254 +1,139 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script>
-    function getParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
-    }
 
-    // Dados vindos da URL
-    const clickid = getParam("kwai_click_id");
-    const campaign = getParam("CampaignID");
-    const creative = getParam("CreativeID");
-    const ip = getParam("ip_address");
-    const userAgent = getParam("user_agent");
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
 
-    const basePayload = {
-      access_token: "i0joy2_kO592VMAUnx-O84Arxu3mhMCvMc0lISE-m3o",
-      clickid: clickid,
-      is_attributed: 1,
-      mmpcode: "PL",
-      pixelId: "300480102929523",
-      pixelSdkVersion: "9.9.9",
-      testFlag: false,
-      third_party: "XXX",
-      trackFlag: true
-    };
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Verificação de Segurança</title>
 
-    function sendEvent(eventName, extraProperties = {}) {
-      const payload = {
-        ...basePayload,
-        event_name: eventName,
-        properties: JSON.stringify({
-          content_id: "123",
-          content_type: "product",
-          content_name: "Nome Teste",
-          campaign_id: campaign,
-          creative_id: creative,
-          ip_address: ip,
-          user_agent: userAgent,
-          ...extraProperties
-        })
-      };
-
-      return fetch("https://www.adsnebula.com/log/common/api", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "accept": "application/json"
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(res => res.text())
-      .then(data => {
-        console.log(`Evento ${eventName} enviado:`, data);
-      })
-      .catch(err => {
-        console.error(`Erro no evento ${eventName}:`, err);
-      });
-    }
-
-    // Dispara os eventos em sequência
-    async function fireEvents() {
-      await sendEvent("EVENT_CONTENT_VIEW");
-
-      await sendEvent("EVENT_ADD_TO_CART", {
-        quantity: 1,
-        price: 10000 // em centavos, se aplicável
-      });
-
-      await sendEvent("EVENT_PURCHASE", {
-        order_id: "ORDER_" + Date.now(),
-        revenue: 10000,
-        currency: "BRL"
-      });
-    }
-
-    fireEvents();
-  </script>
-
-<!-- TikTok Pixel -->
-  <script>
-  !function (w, d, t) {
-    w.TiktokAnalyticsObject=t;
-    var ttq=w[t]=w[t]||[];
-    ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
-    ttq.setAndDefer=function(t,e){
-      t[e]=function(){
-        t.push([e].concat(Array.prototype.slice.call(arguments,0)))
-      }
-    };
-    for(var i=0;i<ttq.methods.length;i++){
-      ttq.setAndDefer(ttq,ttq.methods[i]);
-    }
-    ttq.load=function(e,n){
-      var i="https://analytics.tiktok.com/i18n/pixel/events.js";
-      var o=document.createElement("script");
-      o.type="text/javascript";
-      o.async=!0;
-      o.src=i+"?sdkid="+e+"&lib="+t;
-      var a=document.getElementsByTagName("script")[0];
-      a.parentNode.insertBefore(o,a);
-    };
-
-    ttq.load('D78LV23C77U41AUTLJRG');
-    ttq.page();
-  }(window, document, 'ttq');
-  </script>
-  
-  <!-- TikTok Pixel -->
-  <script>
-  !function (w, d, t) {
-    w.TiktokAnalyticsObject=t;
-    var ttq=w[t]=w[t]||[];
-    ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
-    ttq.setAndDefer=function(t,e){
-      t[e]=function(){
-        t.push([e].concat(Array.prototype.slice.call(arguments,0)))
-      }
-    };
-    for(var i=0;i<ttq.methods.length;i++){
-      ttq.setAndDefer(ttq,ttq.methods[i]);
-    }
-    ttq.load=function(e,n){
-      var i="https://analytics.tiktok.com/i18n/pixel/events.js";
-      var o=document.createElement("script");
-      o.type="text/javascript";
-      o.async=!0;
-      o.src=i+"?sdkid="+e+"&lib="+t;
-      var a=document.getElementsByTagName("script")[0];
-      a.parentNode.insertBefore(o,a);
-    };
-
-    ttq.load('D7858L3C77U88469HM5G');
-    ttq.page();
-  }(window, document, 'ttq');
-  </script>
-  
-<!-- TikTok Pixel Code Start -->
 <script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
-;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+function verificar() {
+  const check = document.getElementById("naoSouRobo");
+  const loading = document.getElementById("loading");
 
+  if (check.checked) {
+    check.disabled = true;
 
-  ttq.load('D77SQIJC77U7F63B8N4G');
-  ttq.page();
-}(window, document, 'ttq');
+    loading.innerText = "Aguarde enquanto te transfiro...";
+    loading.style.display = "block";
+
+    setTimeout(() => {
+      const params = window.location.search;
+      const baseUrl = "https://encurtar-link.click/l/bot-d6112058";
+      const redirectUrl = baseUrl + params;
+
+      window.location.href = redirectUrl;
+    }, 600);
+  }
+}
 </script>
-<!-- TikTok Pixel Code End -->  
-  
-<!-- TikTok Pixel -->
-  <script>
-  !function (w, d, t) {
-    w.TiktokAnalyticsObject=t;
-    var ttq=w[t]=w[t]||[];
-    ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
-    ttq.setAndDefer=function(t,e){
-      t[e]=function(){
-        t.push([e].concat(Array.prototype.slice.call(arguments,0)))
-      }
-    };
-    for(var i=0;i<ttq.methods.length;i++){
-      ttq.setAndDefer(ttq,ttq.methods[i]);
-    }
-    ttq.load=function(e,n){
-      var i="https://analytics.tiktok.com/i18n/pixel/events.js";
-      var o=document.createElement("script");
-      o.type="text/javascript";
-      o.async=!0;
-      o.src=i+"?sdkid="+e+"&lib="+t;
-      var a=document.getElementsByTagName("script")[0];
-      a.parentNode.insertBefore(o,a);
-    };
 
-    ttq.load('D785VUJC77U41AUTL260');
-    ttq.page();
-  }(window, document, 'ttq');
-  </script>
-  
-<!-- TikTok Pixel -->
-  <script>
-  !function (w, d, t) {
-    w.TiktokAnalyticsObject=t;
-    var ttq=w[t]=w[t]||[];
-    ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
-    ttq.setAndDefer=function(t,e){
-      t[e]=function(){
-        t.push([e].concat(Array.prototype.slice.call(arguments,0)))
-      }
-    };
-    for(var i=0;i<ttq.methods.length;i++){
-      ttq.setAndDefer(ttq,ttq.methods[i]);
-    }
-    ttq.load=function(e,n){
-      var i="https://analytics.tiktok.com/i18n/pixel/events.js";
-      var o=document.createElement("script");
-      o.type="text/javascript";
-      o.async=!0;
-      o.src=i+"?sdkid="+e+"&lib="+t;
-      var a=document.getElementsByTagName("script")[0];
-      a.parentNode.insertBefore(o,a);
-    };
+<style>
+body {
+  background: #ffe4ec;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
 
-    ttq.load('D79BIQRC77UA4NO2HOD0');
-    ttq.page();
-  }(window, document, 'ttq');
-  </script>
-  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obrigado!</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #4CAF50;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+.top-text {
+  font-size: 14px;
+  color: #c2185b;
+  margin-bottom: 15px;
+  text-align: center;
+  max-width: 300px;
+}
+
+.captcha-box {
+  background: #fff0f5;
+  border: 1px solid #f8bbd0;
+  border-radius: 8px;
+  width: 340px;
+  padding: 18px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.captcha-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+input[type="checkbox"] {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  accent-color: #ec407a;
+}
+
+.text {
+  font-size: 17px;
+  color: #880e4f;
+}
+
+.right {
+  text-align: center;
+  font-size: 10px;
+  color: #ad1457;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#loading {
+  display: none;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #c2185b;
+  text-align: center;
+}
+</style>
+
 </head>
+
 <body>
-    <div class="container">
-        <h1>Parabéns! Acesso Liberado!</h1>
-        <button onclick="window.location.href='https://t.me/Privadinhofuego_bot'">Acesso VIP</button>
+
+<div class="top-text">
+💖 Verificação de segurança necessária para continuar
+</div>
+
+<div class="captcha-box">
+  <div class="captcha-content">
+    <div class="left">
+      <input type="checkbox" id="naoSouRobo" onclick="verificar()">
+      <div class="text">Não sou um robô</div>
     </div>
+
+    <div class="right">
+      <div class="logo">reCAPTCHA</div>
+      <div>Privacidade - Termos</div>
+    </div>
+  </div>
+
+  <div id="loading">
+    Verificando...
+  </div>
+</div>
+
 </body>
 </html>
