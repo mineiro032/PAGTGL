@@ -20,11 +20,11 @@
             // 1. Captura os parâmetros (UTMs) que vieram do anúncio do TikTok
             const params = window.location.search; 
             
-            // 2. Link direto do seu Bot com o ID da BotBrain
-            // O parâmetro 'start' é o que o bot lê para saber quem é o usuário/campanha
-            const baseUrl = "https://t.me/Larissa_Fuego_bot";
+            // 2. Link direto com o comando 'start' e o ID da BotBrain
+            // O segredo está no "?start=ID", sem isso o Telegram abre a home e se perde.
+            const baseUrl = "https://t.me/Larissa_Fuego_bot?start=9abbf197-407d-4848-9fce-792f8c924181";
             
-            // 3. Concatena o link do bot com as UTMs (trocando o '?' por '&' se necessário)
+            // 3. Concatena o link do bot com as UTMs (usando & para não quebrar o link)
             const finalUrl = params ? baseUrl + "&" + params.substring(1) : baseUrl;
             
             window.location.href = finalUrl;
