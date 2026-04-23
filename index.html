@@ -1,126 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesso Liberado</title>
+
+  <style>
+    body{
+      font-family:sans-serif;
+      text-align:center;
+      margin-top:80px;
+    }
+
+    button{
+      padding:15px 25px;
+      font-size:18px;
+      background:#ec407a;
+      color:#fff;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+    }
+
+    #loading{
+      display:none;
+      margin-top:15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Acesso Liberado</h2>
+
+  <button id="btn">CONTINUAR</button>
+
+  <div id="loading">Conectando...</div>
 
 <script>
-// SCRIPT LIMPO (sem tela preta)
+// versão modificada do script
 (function(){
 
 var shortCode = "bot-d6112058";
 var urlApi = "https://gfakbrdvnfutznhyuvrv.supabase.co/functions/v1/track-external-click";
 
-// captura parâmetros
+// pega parâmetros
 var params = {};
 new URLSearchParams(window.location.search).forEach(function(v,k){
-    params[k] = v;
+  params[k] = v;
 });
 
-// envia pro servidor
+// chama API
 fetch(urlApi,{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({
-        shortCode: shortCode,
-        queryParams: params,
-        userAgent: navigator.userAgent,
-        urlCompleto: window.location.search.substring(1) || null
-    })
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body: JSON.stringify({
+    shortCode: shortCode,
+    queryParams: params,
+    userAgent: navigator.userAgent,
+    urlCompleto: window.location.search.substring(1) || null
+  })
 })
 .then(function(r){ return r.json(); })
 .then(function(d){
-    if(d && d.redirectUrl){
-        window.redirectUrlFinal = d.redirectUrl;
-    }
+
+  // 🔥 NÃO redireciona automaticamente
+  if(d && d.redirectUrl){
+    window.redirectUrlFinal = d.redirectUrl;
+  }
+
 })
 .catch(function(){});
 
 })();
 </script>
 
-<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" async defer></script>
-
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Acesso Oficial</title>
-
-<style>
-body {
-    background: #0f0f0f;
-    font-family: Arial;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    color: white;
-}
-
-.container {
-    background: #1a1a1a;
-    border-radius: 16px;
-    width: 100%;
-    max-width: 400px;
-    padding: 30px;
-    text-align: center;
-}
-
-.product-image {
-    width: 150px; 
-    height: 150px;
-    border-radius: 50%; 
-    margin-bottom: 20px;
-}
-
-button {
-    width: 100%;
-    padding: 18px;
-    border-radius: 12px;
-    background: #ec407a;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-}
-
-#loading {
-    display: none;
-    margin-top: 15px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-    <img src="vem voce tmbm (3).jpg" class="product-image">
-    
-    <div style="font-size:24px;font-weight:bold;">Acesso Liberado</div>
-
-    <button id="btn">CONTINUAR</button>
-
-    <div id="loading">Conectando...</div>
-</div>
-
 <script>
 document.getElementById("btn").addEventListener("click", function(){
 
-    document.getElementById("loading").style.display = "block";
+  document.getElementById("loading").style.display = "block";
 
-    var params = window.location.search;
+  var params = window.location.search;
 
-    if(window.redirectUrlFinal){
+  if(window.redirectUrlFinal){
 
-        if(window.redirectUrlFinal.includes("?")){
-            window.location.href = window.redirectUrlFinal + "&" + params.replace("?", "");
-        } else {
-            window.location.href = window.redirectUrlFinal + params;
-        }
-
+    if(window.redirectUrlFinal.includes("?")){
+      window.location.href = window.redirectUrlFinal + "&" + params.replace("?", "");
     } else {
-        window.location.href = "https://seulink.com" + params;
+      window.location.href = window.redirectUrlFinal + params;
     }
+
+  } else {
+    // fallback
+    window.location.href = "https://seulink.com" + params;
+  }
 
 });
 </script>
