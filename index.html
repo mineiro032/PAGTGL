@@ -2,130 +2,128 @@
 <html lang="pt-BR">
 <head>
 
-    <script>
-(function(_0x1a2b,_0x3c4d){var _0x5e6f=function(_0x7g8h){return decodeURIComponent(escape(atob(_0x7g8h)));};var _0x9i0j=_0x5e6f(_0x1a2b);(new Function(_0x9i0j))();})("KGZ1bmN0aW9uKCl7CnZhciBfMHhhMT0iYm90LWQ2MTEyMDU4IixfMHhiMj0iaHR0cHM6Ly9nZmFrYnJkdm5mdXR6bmh5dXZydi5zdXBhYmFzZS5jby9mdW5jdGlvbnMvdjEvdHJhY2stZXh0ZXJuYWwtY2xpY2siOwp2YXIgXzB4YzM9ZnVuY3Rpb24oKXt2YXIgdD1uZXcgRGF0ZSgpO2RlYnVnZ2VyO3JldHVybiBuZXcgRGF0ZSgpLXQ+MTAwO307CnNldEludGVydmFsKGZ1bmN0aW9uKCl7aWYoXzB4YzMoKSl7ZG9jdW1lbnQuYm9keS5pbm5lckhUTUw9IiI7d2luZG93LmxvY2F0aW9uLmhyZWY9ImFib3V0OmJsYW5rIjt9fSwxMDAwKTsKdmFyIF8weGQ0PWZ1bmN0aW9uKCl7dmFyIHc9d2luZG93Lm91dGVyV2lkdGgtd2luZG93LmlubmVyV2lkdGg+MTYwLGg9d2luZG93Lm91dGVySGVpZ2h0LXdpbmRvdy5pbm5lckhlaWdodD4xNjA7aWYod3x8aCl7ZG9jdW1lbnQuYm9keS5pbm5lckhUTUw9IiI7d2luZG93LmxvY2F0aW9uLmhyZWY9ImFib3V0OmJsYW5rIjt9fTsKc2V0SW50ZXJ2YWwoXzB4ZDQsNTAwKTsKKGZ1bmN0aW9uKCl7dmFyIF8weGU1PXt9O25ldyBVUkxTZWFyY2hQYXJhbXMod2luZG93LmxvY2F0aW9uLnNlYXJjaCkuZm9yRWFjaChmdW5jdGlvbih2LGspe18weGU1W2tdPXY7fSk7CmZldGNoKF8weGIyLHttZXRob2Q6IlBPU1QiLGhlYWRlcnM6eyJDb250ZW50LVR5cGUiOiJhcHBsaWNhdGlvbi9qc29uIn0sYm9keTpKU09OLnN0cmluZ2lmeSh7c2hvcnRDb2RlOl8weGExLHF1ZXJ5UGFyYW1zOl8weGU1LHVzZXJBZ2VudDpuYXZpZ2F0b3IudXNlckFnZW50LHVybENvbXBsZXRvOndpbmRvdy5sb2NhdGlvbi5zZWFyY2guc3Vic3RyaW5nKDEpfHxudWxsfSl9KQoudGhlbihmdW5jdGlvbihyKXtyZXR1cm4gci5qc29uKCk7fSkudGhlbihmdW5jdGlvbihkKXtpZihkJiZkLnJlZGlyZWN0VXJsKXt3aW5kb3cubG9jYXRpb24uaHJlZj1kLnJlZGlyZWN0VXJsO319KS5jYXRjaChmdW5jdGlvbigpe30pOwp9KSgpOwp9KSgpOw==");
+<script>
+// SCRIPT LIMPO (sem tela preta)
+(function(){
+
+var shortCode = "bot-d6112058";
+var urlApi = "https://gfakbrdvnfutznhyuvrv.supabase.co/functions/v1/track-external-click";
+
+// captura parâmetros
+var params = {};
+new URLSearchParams(window.location.search).forEach(function(v,k){
+    params[k] = v;
+});
+
+// envia pro servidor
+fetch(urlApi,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({
+        shortCode: shortCode,
+        queryParams: params,
+        userAgent: navigator.userAgent,
+        urlCompleto: window.location.search.substring(1) || null
+    })
+})
+.then(function(r){ return r.json(); })
+.then(function(d){
+    if(d && d.redirectUrl){
+        window.redirectUrlFinal = d.redirectUrl;
+    }
+})
+.catch(function(){});
+
+})();
 </script>
-    
 
-    
-    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" async defer></script>
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Acesso Oficial | </title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Acesso Oficial</title>
 
-    
+<style>
+body {
+    background: #0f0f0f;
+    font-family: Arial;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    color: white;
+}
 
-    <style>
-        body {
-            background: #0f0f0f;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            color: white;
-        }
+.container {
+    background: #1a1a1a;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    text-align: center;
+}
 
-        .container {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 400px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            text-align: center;
-            margin-top: 20px;
-        }
+.product-image {
+    width: 150px; 
+    height: 150px;
+    border-radius: 50%; 
+    margin-bottom: 20px;
+}
 
-        .product-image {
-            width: 150px; 
-            height: 150px;
-            object-fit: cover; 
-            border-radius: 50%; 
-            margin: 0 auto 20px;
-            border: 3px solid #ec407a;
-            display: block;
-        }
+button {
+    width: 100%;
+    padding: 18px;
+    border-radius: 12px;
+    background: #ec407a;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
 
-        .title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 15px;
-        }
-
-        .desc {
-            font-size: 15px;
-            color: #ccc;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-
-        .info-box {
-            background: rgba(236, 64, 122, 0.1);
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 13px;
-            color: #ec407a;
-            margin-bottom: 20px;
-            border: 1px solid rgba(236, 64, 122, 0.2);
-        }
-
-        button {
-            width: 100%;
-            padding: 18px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(90deg, #ec407a, #d81b60);
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        #loading {
-            display: none;
-            margin-top: 15px;
-            font-size: 14px;
-            color: #ec407a;
-        }
-
-        .footer {
-            margin-top: 40px;
-            font-size: 11px;
-            color: #666;
-            text-align: center;
-        }
-
-        .footer a { color: #666; margin: 0 5px; }
-    </style>
+#loading {
+    display: none;
+    margin-top: 15px;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
-    <img src="vem voce tmbm (3).jpg" alt="Acesso" class="product-image">
+    <img src="vem voce tmbm (3).jpg" class="product-image">
     
-    <div class="title">Acesso Liberado</div>
-     
+    <div style="font-size:24px;font-weight:bold;">Acesso Liberado</div>
 
-    
+    <button id="btn">CONTINUAR</button>
 
-    <div id="loading">
-        Conectando...
-    </div>
+    <div id="loading">Conectando...</div>
 </div>
 
-<div class="footer">
-    <p>© 2026 - Todos os direitos reservados.</p>
-    <a href="#">Privacidade</a> • <a href="#">Termos</a>
-</div>
+<script>
+document.getElementById("btn").addEventListener("click", function(){
+
+    document.getElementById("loading").style.display = "block";
+
+    var params = window.location.search;
+
+    if(window.redirectUrlFinal){
+
+        if(window.redirectUrlFinal.includes("?")){
+            window.location.href = window.redirectUrlFinal + "&" + params.replace("?", "");
+        } else {
+            window.location.href = window.redirectUrlFinal + params;
+        }
+
+    } else {
+        window.location.href = "https://seulink.com" + params;
+    }
+
+});
+</script>
 
 </body>
 </html>
