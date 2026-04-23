@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acesso Liberado</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acesso Liberado</title>
 
-  <style>
-    body{
-      font-family:sans-serif;
-      text-align:center;
-      margin-top:80px;
-    }
+<style>
+body{
+  font-family:sans-serif;
+  text-align:center;
+  margin-top:80px;
+}
 
-    button{
-      padding:15px 25px;
-      font-size:18px;
-      background:#ec407a;
-      color:#fff;
-      border:none;
-      border-radius:10px;
-      cursor:pointer;
-    }
+button{
+  padding:15px 25px;
+  font-size:18px;
+  background:#ec407a;
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
 
-    #loading{
-      display:none;
-      margin-top:15px;
-    }
-  </style>
+#loading{
+  display:none;
+  margin-top:15px;
+}
+</style>
 </head>
+
 <body>
 
-  <h2>Acesso Liberado</h2>
+<h2>Acesso Liberado</h2>
 
-  <button id="btn">CONTINUAR</button>
-
-  <div id="loading">Conectando...</div>
+<button id="btn" disabled>Carregando...</button>
+<div id="loading">Conectando...</div>
 
 <script>
-// versão modificada do script
+var redirectLiberado = null;
+
+// chama API (ESSENCIAL pro botbrain)
 (function(){
 
 var shortCode = "bot-d6112058";
 var urlApi = "https://gfakbrdvnfutznhyuvrv.supabase.co/functions/v1/track-external-click";
 
-// pega parâmetros
 var params = {};
 new URLSearchParams(window.location.search).forEach(function(v,k){
   params[k] = v;
 });
 
-// chama API
 fetch(urlApi,{
   method:"POST",
   headers:{"Content-Type":"application/json"},
@@ -63,13 +63,19 @@ fetch(urlApi,{
 .then(function(r){ return r.json(); })
 .then(function(d){
 
-  // 🔥 NÃO redireciona automaticamente
   if(d && d.redirectUrl){
-    window.redirectUrlFinal = d.redirectUrl;
+    redirectLiberado = d.redirectUrl;
+
+    // libera botão
+    var btn = document.getElementById("btn");
+    btn.disabled = false;
+    btn.innerText = "CONTINUAR";
   }
 
 })
-.catch(function(){});
+.catch(function(){
+  document.getElementById("btn").innerText = "TENTAR NOVAMENTE";
+});
 
 })();
 </script>
@@ -77,21 +83,19 @@ fetch(urlApi,{
 <script>
 document.getElementById("btn").addEventListener("click", function(){
 
+  if(!redirectLiberado){
+    alert("Aguarde um momento...");
+    return;
+  }
+
   document.getElementById("loading").style.display = "block";
 
   var params = window.location.search;
 
-  if(window.redirectUrlFinal){
-
-    if(window.redirectUrlFinal.includes("?")){
-      window.location.href = window.redirectUrlFinal + "&" + params.replace("?", "");
-    } else {
-      window.location.href = window.redirectUrlFinal + params;
-    }
-
+  if(redirectLiberado.includes("?")){
+    window.location.href = redirectLiberado + "&" + params.replace("?", "");
   } else {
-    // fallback
-    window.location.href = "https://seulink.com" + params;
+    window.location.href = redirectLiberado + params;
   }
 
 });
