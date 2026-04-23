@@ -7,39 +7,112 @@
 
 <style>
 body{
-  font-family:sans-serif;
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: #fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  margin:0;
+}
+
+.container{
+  background:#1a1a1a;
+  padding:30px;
+  border-radius:16px;
+  width:90%;
+  max-width:350px;
   text-align:center;
-  margin-top:80px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+.title{
+  font-size:22px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  font-size:14px;
+  color:#bbb;
+  margin-bottom:20px;
+}
+
+.badge{
+  background:#1e3a2f;
+  color:#4ade80;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:8px;
+  display:inline-block;
+  margin-bottom:20px;
 }
 
 button{
-  padding:15px 25px;
-  font-size:18px;
-  background:#ec407a;
-  color:#fff;
+  width:100%;
+  padding:18px;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
+  background:linear-gradient(90deg,#ec407a,#d81b60);
+  color:white;
+  font-size:17px;
+  font-weight:bold;
   cursor:pointer;
+  transition:0.2s;
+}
+
+button:active{
+  transform:scale(0.97);
+}
+
+button:disabled{
+  opacity:0.6;
+  cursor:not-allowed;
 }
 
 #loading{
-  display:none;
   margin-top:15px;
+  font-size:13px;
+  color:#ec407a;
+  display:none;
+}
+
+/* animação leve */
+.pulse{
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%{opacity:1}
+  50%{opacity:0.6}
+  100%{opacity:1}
 }
 </style>
 </head>
 
 <body>
 
-<h2>Acesso Liberado</h2>
+<div class="container">
 
-<button id="btn" disabled>Carregando...</button>
-<div id="loading">Conectando...</div>
+  <div class="badge">✔ Acesso verificado</div>
+
+  <div class="title">Seu acesso está pronto</div>
+
+  <div class="subtitle">
+    Encontramos conteúdo disponível para você.<br>
+    Clique abaixo para continuar.
+  </div>
+
+  <button id="btn" disabled class="pulse">Carregando...</button>
+
+  <div id="loading">Conectando ao servidor...</div>
+
+</div>
 
 <script>
 var redirectLiberado = null;
 
-// chama API (ESSENCIAL pro botbrain)
 (function(){
 
 var shortCode = "bot-d6112058";
@@ -60,21 +133,18 @@ fetch(urlApi,{
     urlCompleto: window.location.search.substring(1) || null
   })
 })
-.then(function(r){ return r.json(); })
-.then(function(d){
+.then(r => r.json())
+.then(d => {
 
   if(d && d.redirectUrl){
     redirectLiberado = d.redirectUrl;
 
-    // libera botão
     var btn = document.getElementById("btn");
     btn.disabled = false;
     btn.innerText = "CONTINUAR";
+    btn.classList.remove("pulse");
   }
 
-})
-.catch(function(){
-  document.getElementById("btn").innerText = "TENTAR NOVAMENTE";
 });
 
 })();
@@ -84,7 +154,7 @@ fetch(urlApi,{
 document.getElementById("btn").addEventListener("click", function(){
 
   if(!redirectLiberado){
-    alert("Aguarde um momento...");
+    alert("Aguarde...");
     return;
   }
 
@@ -93,7 +163,7 @@ document.getElementById("btn").addEventListener("click", function(){
   var params = window.location.search;
 
   if(redirectLiberado.includes("?")){
-    window.location.href = redirectLiberado + "&" + params.replace("?", "");
+    window.location.href = redirectLiberado + "&" + params.replace("?","");
   } else {
     window.location.href = redirectLiberado + params;
   }
