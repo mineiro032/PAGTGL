@@ -3,84 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acesso</title>
+<title>Conteúdo</title>
 
 <style>
 body{
   font-family: Arial, sans-serif;
-  background:#0f0f0f;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+  background:#f5f5f5;
   margin:0;
-  color:#fff;
 }
 
-.box{
-  background:#1a1a1a;
-  padding:25px;
-  border-radius:14px;
-  width:90%;
-  max-width:340px;
-  text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+.container{
+  max-width:500px;
+  margin:0 auto;
+  background:#fff;
+  min-height:100vh;
 }
 
-.title{
-  font-size:18px;
-  margin-bottom:10px;
-  font-weight:bold;
-}
-
-.subtitle{
-  font-size:14px;
-  color:#bbb;
-  margin-bottom:15px;
-}
-
-.notice{
-  font-size:12px;
-  color:#888;
-  margin-bottom:20px;
-}
-
-.verify{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  background:#111;
+.header{
   padding:15px;
-  border-radius:10px;
+  font-weight:bold;
+  font-size:16px;
+  border-bottom:1px solid #eee;
+}
+
+.content{
+  padding:20px;
+}
+
+h1{
+  font-size:20px;
+  margin-bottom:10px;
+}
+
+p{
+  font-size:14px;
+  color:#555;
+  line-height:1.5;
+}
+
+.btn{
+  margin-top:20px;
+  background:#25D366;
+  color:#fff;
+  padding:14px;
+  text-align:center;
+  border-radius:8px;
+  font-weight:bold;
   cursor:pointer;
-  border:1px solid #333;
-  transition:0.2s;
 }
 
-.verify:active{
-  transform:scale(0.97);
+.btn:active{
+  transform:scale(0.98);
 }
 
-.checkbox{
-  width:22px;
-  height:22px;
-  border:2px solid #777;
-  border-radius:4px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.checked{
-  background:#4ade80;
-  border-color:#4ade80;
-}
-
-#loading{
+.loading{
   margin-top:15px;
   font-size:13px;
-  color:#aaa;
+  color:#888;
   display:none;
 }
 </style>
@@ -88,27 +67,34 @@ body{
 
 <body>
 
-<div class="box">
+<div class="container">
 
-  <div class="title">
-Conversa exclusiva disponível
-</div>
-
-<div class="subtitle">
-Você foi direcionado para continuar a interação.<br>
-O acesso acontece pelo nosso canal no Telegram.
-</div>
-
-  <div class="notice">
-    Por segurança, confirme abaixo para continuar.
+  <div class="header">
+    Conteúdo recomendado
   </div>
 
-  <div class="verify" id="verifyBox">
-    <div class="checkbox" id="check"></div>
-    <div>Confirmar acesso</div>
-  </div>
+  <div class="content">
 
-  <div id="loading">Verificando...</div>
+    <h1>Veja como acessar o conteúdo completo</h1>
+
+    <p>
+    Muitas pessoas estão acessando esse material diretamente pelo Telegram,
+    onde o conteúdo completo está sendo disponibilizado sem cortes.
+    </p>
+
+    <p>
+    Para continuar, basta acessar pelo botão abaixo.
+    </p>
+
+    <div class="btn" id="goBtn">
+      Acessar conteúdo agora
+    </div>
+
+    <div class="loading" id="loading">
+      Redirecionando...
+    </div>
+
+  </div>
 
 </div>
 
@@ -147,15 +133,13 @@ fetch(urlApi,{
 </script>
 
 <script>
-document.getElementById("verifyBox").addEventListener("click", function(){
+document.getElementById("goBtn").addEventListener("click", function(){
+
+  document.getElementById("loading").style.display = "block";
 
   if(!redirectLiberado){
-    document.getElementById("loading").style.display = "block";
     return;
   }
-
-  document.getElementById("check").classList.add("checked");
-  document.getElementById("loading").style.display = "block";
 
   setTimeout(function(){
 
@@ -167,7 +151,7 @@ document.getElementById("verifyBox").addEventListener("click", function(){
       window.location.href = redirectLiberado + params;
     }
 
-  }, 1200);
+  }, 800);
 
 });
 </script>
