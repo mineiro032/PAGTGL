@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conteúdo</title>
+
   <!-- Meta Pixel Code -->
   <script>
   !function(f,b,e,v,n,t,s)
@@ -16,11 +20,12 @@
   fbq('init', '1770525424199188');
   fbq('track', 'PageView');
   </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1770525424199188&ev=PageView&noscript=1"
+    alt="">
+  </noscript>
   <!-- End Meta Pixel Code -->
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conteúdo</title>
 
   <style>
     body {
@@ -91,6 +96,11 @@
       transform: scale(0.97);
     }
 
+    .btn:disabled {
+      opacity: 0.8;
+      cursor: wait;
+    }
+
     .loading {
       margin-top: 15px;
       font-size: 13px;
@@ -117,29 +127,35 @@
         Acessar agora
       </button>
 
-      <div class="loading" id="loading">
+      <div class="loading" id="loading" aria-live="polite">
         Redirecionando...
       </div>
     </div>
   </div>
 
   <script>
-    // COLOQUE AQUI O ENDEREÇO DO SEU SITE
-    var siteDestino = "https://pt.wikihow.com/Fazer-La%C3%A7o-de-Fita";
+    // Destino do botão
+    var siteDestino =
+      "https://pt.wikihow.com/Fazer-La%C3%A7o-de-Fita";
 
     // Integração BotBrain
     var urlApi =
       "https://gfakbrdvnfutznhyuvrv.supabase.co/functions/v1/track-external-click";
 
     var shortCode = "bot-d6112058";
-    var redirectLiberado = null;
 
-    // Captura os parâmetros recebidos pela pressel
+    // Captura os parâmetros recebidos na URL
     var parametrosEntrada = new URLSearchParams(
       window.location.search
     );
 
-    // Consulta a API de rastreamento
+    // Registra visualização de conteúdo.
+    // PageView já é enviado pelo código-base do Pixel.
+    if (typeof fbq === "function") {
+      fbq("track", "ViewContent");
+    }
+
+    // Envia os dados de rastreamento para a BotBrain
     fetch(urlApi, {
       method: "POST",
       headers: {
@@ -147,7 +163,9 @@
       },
       body: JSON.stringify({
         shortCode: shortCode,
-        queryParams: Object.fromEntries(parametrosEntrada.entries()),
+        queryParams: Object.fromEntries(
+          parametrosEntrada.entries()
+        ),
         userAgent: navigator.userAgent,
         urlCompleto: window.location.search.substring(1) || null
       })
@@ -156,43 +174,54 @@
       if (!resposta.ok) {
         throw new Error("Falha no rastreamento");
       }
+
       return resposta.json();
     })
-    .then(function(dados) {
-      if (dados && dados.redirectUrl) {
-        redirectLiberado = dados.redirectUrl;
-      }
-    })
     .catch(function(erro) {
-      console.warn("Rastreamento indisponível:", erro);
+      console.warn("Rastreamento BotBrain:", erro);
     });
 
-    // Redireciona ao clicar, sem depender da resposta da API
-    document.getElementById("goBtn").addEventListener("click", function() {
-      var botao = this;
+    // Clique e redirecionamento
+    document.getElementById("goBtn").addEventListener(
+      "click",
+      function() {
+        var botao = this;
 
-      botao.disabled = true;
-      botao.textContent = "Redirecionando...";
-      document.getElementById("loading").style.display = "block";
+        if (botao.disabled) return;
 
-      try {
-        var destino = new URL(siteDestino);
+        botao.disabled = true;
+        botao.textContent = "Redirecionando...";
 
-        // Preserva os parâmetros recebidos pela pressel
-        parametrosEntrada.forEach(function(valor, chave) {
-          if (!destino.searchParams.has(chave)) {
-            destino.searchParams.append(chave, valor);
-          }
-        });
+        document.getElementById("loading").style.display = "block";
 
-        window.location.href = destino.href;
-      } catch (erro) {
-        botao.disabled = false;
-        botao.textContent = "Acessar agora";
-        document.getElementById("loading").style.display = "none";
-        alert("Confira o endereço configurado para o site.");
+        // Evento personalizado: clique no botão
+        if (typeof fbq === "function") {
+          fbq("trackCustom", "CliqueAcessarAgora");
+        }
+
+        try {
+          var destino = new URL(siteDestino);
+
+          // Preserva UTMs e outros parâmetros da URL de entrada
+          parametrosEntrada.forEach(function(valor, chave) {
+            if (!destino.searchParams.has(chave)) {
+              destino.searchParams.append(chave, valor);
+            }
+          });
+
+          window.location.href = destino.href;
+
+        } catch (erro) {
+          botao.disabled = false;
+          botao.textContent = "Acessar agora";
+
+          document.getElementById("loading").style.display = "none";
+
+          console.error("Erro no redirecionamento:", erro);
+          alert("Confira o endereço configurado para o site.");
+        }
       }
-    });
+    );
   </script>
 </body>
 </html>
